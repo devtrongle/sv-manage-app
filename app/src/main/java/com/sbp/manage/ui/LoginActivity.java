@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -12,13 +13,10 @@ import android.widget.Toast;
 
 import com.sbp.manage.R;
 import com.sbp.manage.databinding.ActivityLoginBinding;
-import com.sbp.manage.databinding.ActivityMainBinding;
 import com.sbp.manage.network.RetrofitClient;
 import com.sbp.manage.network.dto.LoginDto;
 import com.sbp.manage.network.params.LoginParams;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.sbp.manage.ui.home.HomeActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             if (username.isEmpty() || pwd.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!",
                         Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, HomeActivity.class));
             } else {
                 RetrofitClient.getInstance()
                         .mApiClient
