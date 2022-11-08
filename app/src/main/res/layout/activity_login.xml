@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edtUsername"
                 android:inputType="text"
+                android:text="nhanvien3"
                 android:layout_marginVertical="3dp"
                 android:hint="Nhập tên đăng nhập"/>
 
@@ -77,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edtPassword"
                 android:inputType="textPassword"
+                android:text="12345678"
                 android:layout_marginVertical="3dp"
                 android:hint="Nhập mật khẩu"/>
 

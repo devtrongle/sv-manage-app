@@ -1,10 +1,35 @@
 package com.sbp.manage.network;
 
-import io.reactivex.rxjava3.core.Flowable;
+import com.sbp.manage.network.dto.BaseDto;
+import com.sbp.manage.network.dto.ContractDto;
+import com.sbp.manage.network.dto.CreateEmploymentDto;
+import com.sbp.manage.network.dto.EmploymentDto;
+import com.sbp.manage.network.dto.LoginDto;
+import com.sbp.manage.network.params.CreateContractParams;
+import com.sbp.manage.network.params.CreateEmploymentParams;
+import com.sbp.manage.network.params.LoginParams;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface ApiClient {
 
-    @POST
-    Flowable<Object> login(String username, String password);
+    @POST("/user/login")
+    Call<LoginDto> login(@Body LoginParams params);
+
+    @POST("/employment/employments")
+    Call<EmploymentDto> getEmployments();
+
+    @POST("/mail")
+    Call<BaseDto> sendMail();
+
+    @POST("/contract/contracts")
+    Call<ContractDto> getAllContracts();
+
+    @POST("/contract")
+    Call<BaseDto> createContract(@Body CreateContractParams params);
+
+    @POST("/employment")
+    Call<CreateEmploymentDto> createEmployment(@Body CreateEmploymentParams params);
 }

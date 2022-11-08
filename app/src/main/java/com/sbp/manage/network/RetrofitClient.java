@@ -1,16 +1,14 @@
 package com.sbp.manage.network;
 
-import com.squareup.moshi.Moshi;
-
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.moshi.MoshiConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private final ApiClient mApiClient;
+    public final ApiClient mApiClient;
 
     private static RetrofitClient sInstance;
 
@@ -31,8 +29,10 @@ public class RetrofitClient {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .addConverterFactory(MoshiConverterFactory.create())
+                .baseUrl("https://manager-employment-api.onrender.com")
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         mApiClient = retrofit.create(ApiClient.class);
     }
 }
