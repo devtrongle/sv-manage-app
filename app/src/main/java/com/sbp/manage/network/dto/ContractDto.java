@@ -1,91 +1,160 @@
 package com.sbp.manage.network.dto;
 
+import androidx.annotation.NonNull;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class ContractDto {
-    private String _id;
-    private String employmentId;
-    private String createAt;
-    private String content;
-    private String descriptionWork;
-    private String salary;
-    private String socialInsurance;
-    private String bonusProject;
-    private float __v;
+    @Expose
+    @SerializedName("Contracts")
+    private List<Contracts> Contracts;
+    @Expose
+    @SerializedName("message")
+    private String message;
+    @Expose
+    @SerializedName("success")
+    private boolean success;
 
-
-// Getter Methods
-
-    public String get_id() {
-        return _id;
+    public List<Contracts> getContracts() {
+        return Contracts;
     }
 
-    public String getEmploymentId() {
-        return employmentId;
+    public void setContracts(List<Contracts> Contracts) {
+        this.Contracts = Contracts;
     }
 
-    public String getCreateAt() {
-        return createAt;
+    public String getMessage() {
+        return message;
     }
 
-    public String getContent() {
-        return content;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getDescriptionWork() {
-        return descriptionWork;
+    public boolean getSuccess() {
+        return success;
     }
 
-    public String getSalary() {
-        return salary;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
-    public String getSocialInsurance() {
-        return socialInsurance;
+    @NonNull
+    @Override
+    public String toString() {
+        return "ContractDto{" +
+                "Contracts=" + Contracts +
+                ", message='" + message + '\'' +
+                ", success=" + success +
+                '}';
     }
 
-    public String getBonusProject() {
-        return bonusProject;
-    }
+    public static class Contracts {
+        @Expose
+        @SerializedName("bonusProject")
+        private String bonusProject;
+        @Expose
+        @SerializedName("socialInsurance")
+        private String socialInsurance;
+        @Expose
+        @SerializedName("salary")
+        private String salary;
+        @Expose
+        @SerializedName("descriptionWork")
+        private String descriptionWork;
+        @Expose
+        @SerializedName("content")
+        private String content;
+        @Expose
+        @SerializedName("createAt")
+        private String createAt;
+        @Expose
+        @SerializedName("employmentId")
+        private String employmentId;
+        @Expose
+        @SerializedName("_id")
+        private String _id;
 
-    public float get__v() {
-        return __v;
-    }
+        public String getBonusProject() {
+            return bonusProject;
+        }
 
-// Setter Methods
+        public void setBonusProject(String bonusProject) {
+            this.bonusProject = bonusProject;
+        }
 
-    public void set_id(String _id) {
-        this._id = _id;
-    }
+        public String getSocialInsurance() {
+            return socialInsurance;
+        }
 
-    public void setEmploymentId(String employmentId) {
-        this.employmentId = employmentId;
-    }
+        public void setSocialInsurance(String socialInsurance) {
+            this.socialInsurance = socialInsurance;
+        }
 
-    public void setCreateAt(String createAt) {
-        this.createAt = createAt;
-    }
+        public String getSalary() {
+            return salary;
+        }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+        public void setSalary(String salary) {
+            this.salary = salary;
+        }
 
-    public void setDescriptionWork(String descriptionWork) {
-        this.descriptionWork = descriptionWork;
-    }
+        public String getDescriptionWork() {
+            return descriptionWork;
+        }
 
-    public void setSalary(String salary) {
-        this.salary = salary;
-    }
+        public void setDescriptionWork(String descriptionWork) {
+            this.descriptionWork = descriptionWork;
+        }
 
-    public void setSocialInsurance(String socialInsurance) {
-        this.socialInsurance = socialInsurance;
-    }
+        public String getContent() {
+            return content;
+        }
 
-    public void setBonusProject(String bonusProject) {
-        this.bonusProject = bonusProject;
-    }
+        public void setContent(String content) {
+            this.content = content;
+        }
 
-    public void set__v(float __v) {
-        this.__v = __v;
+        public String getCreateAt() {
+            return createAt;
+        }
+
+        public void setCreateAt(String createAt) {
+            this.createAt = createAt;
+        }
+
+        public String getEmploymentId() {
+            return employmentId;
+        }
+
+        public void setEmploymentId(String employmentId) {
+            this.employmentId = employmentId;
+        }
+
+        public String get_id() {
+            return _id;
+        }
+
+        public void set_id(String _id) {
+            this._id = _id;
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return "Contracts{" +
+                    "bonusProject='" + bonusProject + '\'' +
+                    ", socialInsurance='" + socialInsurance + '\'' +
+                    ", salary='" + salary + '\'' +
+                    ", descriptionWork='" + descriptionWork + '\'' +
+                    ", content='" + content + '\'' +
+                    ", createAt='" + createAt + '\'' +
+                    ", employmentId='" + employmentId + '\'' +
+                    ", _id='" + _id + '\'' +
+                    '}';
+        }
     }
 }

@@ -9,10 +9,13 @@ public class LoginDto {
     private boolean success;
     @SerializedName("message")
     private String message;
+    @SerializedName("isAdmin")
+    private boolean isAdmin;
 
-    public LoginDto(boolean success, String message) {
+    public LoginDto(boolean success, String message, boolean isAdmin) {
         this.success = success;
         this.message = message;
+        this.isAdmin = isAdmin;
     }
 
     public LoginDto() {
@@ -34,12 +37,21 @@ public class LoginDto {
         this.message = message;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     @NonNull
     @Override
     public String toString() {
         return "LoginDto{" +
                 "success=" + success +
                 ", message='" + message + '\'' +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 }

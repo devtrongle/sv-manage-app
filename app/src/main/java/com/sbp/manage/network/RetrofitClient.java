@@ -32,6 +32,7 @@ public class RetrofitClient {
                 .baseUrl("https://manager-employment-api.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         mApiClient = retrofit.create(ApiClient.class);
     }
 }

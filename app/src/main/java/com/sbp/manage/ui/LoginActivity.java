@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -13,10 +12,14 @@ import android.widget.Toast;
 
 import com.sbp.manage.R;
 import com.sbp.manage.databinding.ActivityLoginBinding;
+import com.sbp.manage.databinding.ActivityMainBinding;
 import com.sbp.manage.network.RetrofitClient;
 import com.sbp.manage.network.dto.LoginDto;
 import com.sbp.manage.network.params.LoginParams;
-import com.sbp.manage.ui.home.HomeActivity;
+import com.sbp.manage.utils.Utility;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,14 +50,15 @@ public class LoginActivity extends AppCompatActivity {
             if (username.isEmpty() || pwd.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!",
                         Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, HomeActivity.class));
             } else {
+                Utility.showWaitingDialog(LoginActivity.this);
                 RetrofitClient.getInstance()
                         .mApiClient
                         .login(new LoginParams(username, pwd))
                         .enqueue(new Callback<LoginDto>() {
                     @Override
                     public void onResponse(@NonNull Call<LoginDto> call, @NonNull Response<LoginDto> response) {
+                        Utility.dismissWaitingDialog();
                         if (response.body() != null) {
                             Log.d(TAG, response.body().toString());
                         } else {
@@ -64,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(@NonNull Call<LoginDto> call, @NonNull Throwable t) {
+                        Utility.dismissWaitingDialog();
                         Log.e(TAG, t.toString());
                         Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!",
                                 Toast.LENGTH_SHORT).show();
