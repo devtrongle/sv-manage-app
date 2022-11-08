@@ -1,10 +1,16 @@
 package com.sbp.manage.network;
 
-import io.reactivex.rxjava3.core.Flowable;
+import com.sbp.manage.network.dto.LoginDto;
+import com.sbp.manage.network.params.LoginParams;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface ApiClient {
 
-    @POST
-    Flowable<Object> login(String username, String password);
+    @Headers("Content-Type: application/json")
+    @POST("/user/login")
+    Call<LoginDto> login(@Body LoginParams params);
 }
