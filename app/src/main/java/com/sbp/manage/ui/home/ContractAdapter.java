@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<ContractDto> list = new ArrayList<>();
+    private ArrayList<ContractDto.Contracts> list = new ArrayList<>();
 
     public ContractAdapter(Context context) {
         this.context = context;
@@ -33,7 +33,7 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ContractDto data = list.get(position);
+        ContractDto.Contracts data = list.get(position);
         holder.getTvId().setText(data.get_id());
         holder.getTvContent().setText(data.getContent());
         holder.getTvCreateAt().setText(data.getCreateAt());
@@ -69,7 +69,7 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.ViewHo
         }
     }
 
-    public void setData(ArrayList<ContractDto> list) {
+    public void setData(ArrayList<ContractDto.Contracts> list) {
         this.list.clear();
         this.list = list;
         notifyDataSetChanged();

@@ -30,16 +30,16 @@ public class HomeActivity extends AppCompatActivity {
         RetrofitClient.getInstance()
                 .mApiClient
                 .getAllContracts()
-                .enqueue(new Callback<ContractResponse>() {
+                .enqueue(new Callback<ContractDto>() {
                     @Override
-                    public void onResponse(Call<ContractResponse> call, Response<ContractResponse> response) {
+                    public void onResponse(Call<ContractDto> call, Response<ContractDto> response) {
                         if (response.isSuccessful()) {
-                            contractAdapter.setData((ArrayList<ContractDto>) response.body().getContracts());
+                            contractAdapter.setData((ArrayList<ContractDto.Contracts>) response.body().getContracts());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ContractResponse> call, Throwable t) {
+                    public void onFailure(Call<ContractDto> call, Throwable t) {
 
                     }
                 });

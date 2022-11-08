@@ -25,10 +25,6 @@ public interface ApiClient {
     @POST("/user/login")
     Call<LoginDto> login(@Body LoginParams params);
 
-    @Headers("Content-Type: application/json")
-    @POST("/contract/contracts")
-    Call<ContractResponse> getAllContracts();
-
     @POST("/employment/employments")
     Call<EmploymentDto> getEmployments();
 
