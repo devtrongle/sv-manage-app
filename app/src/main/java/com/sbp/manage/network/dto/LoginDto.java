@@ -11,11 +11,14 @@ public class LoginDto {
     private String message;
     @SerializedName("isAdmin")
     private boolean isAdmin;
+    @SerializedName("username")
+    private String username;
 
-    public LoginDto(boolean success, String message, boolean isAdmin) {
+    public LoginDto(boolean success, String message, boolean isAdmin, String username) {
         this.success = success;
         this.message = message;
         this.isAdmin = isAdmin;
+        this.username = username;
     }
 
     public LoginDto() {
@@ -43,6 +46,14 @@ public class LoginDto {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @NonNull

@@ -1,4 +1,4 @@
-package com.sbp.manage.ui.home;
+package com.sbp.manage.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sbp.manage.R;
@@ -14,12 +16,31 @@ import com.sbp.manage.network.dto.ContractDto;
 
 import java.util.ArrayList;
 
-public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.ViewHolder> {
+public class ContractAdapter extends ListAdapter<ContractDto.Contracts, ContractAdapter.ViewHolder> {
     private Context context;
     private ArrayList<ContractDto.Contracts> list = new ArrayList<>();
 
-    public ContractAdapter(Context context) {
-        this.context = context;
+    public ContractAdapter() {
+        super(new DiffCallback());
+    }
+
+    private IOnClick mIOnClick;
+
+    public void setOnClick(IOnClick IOnClick) {
+        mIOnClick = IOnClick;
+    }
+
+    public static class DiffCallback extends DiffUtil.ItemCallback<ContractDto.Contracts> {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull ContractDto.Contracts oldItem, @NonNull ContractDto.Contracts newItem) {
+            return false;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull ContractDto.Contracts oldItem, @NonNull ContractDto.Contracts newItem) {
+            return false;
+        }
     }
 
     @NonNull
@@ -37,6 +58,12 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.ViewHo
         holder.getTvId().setText(data.get_id());
         holder.getTvContent().setText(data.getContent());
         holder.getTvCreateAt().setText(data.getCreateAt());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (mIOnClick != null) {
+                mIOnClick.onClick(position, data);
+            }
+        });
     }
 
     @Override
@@ -74,4 +101,9 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.ViewHo
         this.list = list;
         notifyDataSetChanged();
     }
+
+    public interface IOnClick {
+        void onClick(int position, ContractDto.Contracts contract);
+    }
 }
+
