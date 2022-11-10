@@ -4,6 +4,7 @@ import com.sbp.manage.network.dto.BaseDto;
 import com.sbp.manage.network.dto.ContractDto;
 import com.sbp.manage.network.dto.CreateEmploymentDto;
 import com.sbp.manage.network.dto.EmploymentDto;
+import com.sbp.manage.network.dto.EmploymentTimeDto;
 import com.sbp.manage.network.dto.LoginDto;
 import com.sbp.manage.network.params.CreateContractParams;
 import com.sbp.manage.network.params.CreateEmploymentParams;
@@ -39,4 +40,7 @@ public interface ApiClient {
 
     @POST("/employment")
     Call<CreateEmploymentDto> createEmployment(@Body CreateEmploymentParams params);
+
+    @POST("/employment/time")
+    Call<EmploymentTimeDto> getAllEmploymentTime();
 }

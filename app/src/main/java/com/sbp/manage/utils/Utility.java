@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 
 import com.sbp.manage.databinding.WaitingDialogBinding;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class Utility {
     private static Dialog sWaitingDialog;
 
@@ -28,5 +31,10 @@ public class Utility {
         if (sWaitingDialog != null && sWaitingDialog.isShowing()) {
             sWaitingDialog.dismiss();
         }
+    }
+
+    public static String currencyFormat(double money) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###.##");
+        return formatter.format(money) + " VND";
     }
 }
