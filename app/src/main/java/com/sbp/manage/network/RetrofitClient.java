@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    public final ApiClient mApiClient;
+    private final ApiClient mApiClient;
 
     private static RetrofitClient sInstance;
 
@@ -34,5 +34,9 @@ public class RetrofitClient {
                 .build();
 
         mApiClient = retrofit.create(ApiClient.class);
+    }
+
+    public ApiClient getApiClient() {
+        return mApiClient;
     }
 }

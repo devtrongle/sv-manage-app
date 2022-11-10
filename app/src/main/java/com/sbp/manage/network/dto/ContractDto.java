@@ -79,7 +79,13 @@ public class ContractDto {
         private String _id;
 
         public String getBonusProject() {
-            return bonusProject;
+            if (bonusProject == null) {
+                return "0";
+            } else if (bonusProject.isEmpty()) {
+                return "0";
+            } else {
+                return bonusProject;
+            }
         }
 
         public void setBonusProject(String bonusProject) {
@@ -87,7 +93,13 @@ public class ContractDto {
         }
 
         public String getSocialInsurance() {
-            return socialInsurance;
+            if (socialInsurance == null) {
+                return "0";
+            } else if (socialInsurance.isEmpty()) {
+                return "0";
+            } else {
+                return socialInsurance;
+            }
         }
 
         public void setSocialInsurance(String socialInsurance) {
@@ -95,7 +107,13 @@ public class ContractDto {
         }
 
         public String getSalary() {
-            return salary;
+            if (salary == null) {
+                return "0";
+            } else if (salary.isEmpty()) {
+                return "0";
+            } else {
+                return salary;
+            }
         }
 
         public void setSalary(String salary) {
