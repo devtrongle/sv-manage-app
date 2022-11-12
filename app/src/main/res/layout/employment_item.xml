@@ -10,25 +10,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_info_title"
-        android:text="THÔNG TIN NHÂN VIÊN"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"/>
-
-    <TextView
         android:layout_marginStart="10dp"
         android:id="@+id/tv_name_title"
         android:textSize="17sp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tv_info_title"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,30 +81,16 @@
         app:layout_constraintStart_toEndOf="@id/tv_birthday_title" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_income_detail_title"
-        android:text="LƯƠNG"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_birthday_title"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"/>
-
-
-    <TextView
         android:layout_marginStart="10dp"
         android:id="@+id/tv_salary_month_title"
         android:textSize="17sp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tv_income_detail_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_birthday_title"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tháng: "/>
+        android:text="Lương (tháng): "/>
 
     <TextView
         android:id="@+id/tv_salary_month"
@@ -141,7 +114,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Năm: "/>
+        android:text="Lương (năm): "/>
 
     <TextView
         android:id="@+id/tv_salary_year"

@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.sbp.manage.ui.ManageApplication;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContractDto {
@@ -52,7 +55,7 @@ public class ContractDto {
                 '}';
     }
 
-    public static class Contracts {
+    public static class Contracts implements Serializable {
         @Expose
         @SerializedName("bonusProject")
         private String bonusProject;
@@ -173,6 +176,16 @@ public class ContractDto {
                     ", employmentId='" + employmentId + '\'' +
                     ", _id='" + _id + '\'' +
                     '}';
+        }
+
+        public int indexOf() {
+            for (int i = 0; i < ManageApplication.sContractList.size(); i++) {
+                if (ManageApplication.sContractList.get(i).get_id().equals(get_id())){
+                    return i;
+                }
+            }
+
+            return -1;
         }
     }
 }

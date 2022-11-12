@@ -4,18 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.sbp.manage.R;
 import com.sbp.manage.adapter.IncomeAdapter;
 import com.sbp.manage.databinding.ActivityIncomeDetailBinding;
+import com.sbp.manage.network.RetrofitClient;
+import com.sbp.manage.network.dto.BaseDto;
 import com.sbp.manage.network.dto.ContractDto;
 import com.sbp.manage.network.dto.EmploymentDto;
 import com.sbp.manage.network.dto.EmploymentTimeDto;
 import com.sbp.manage.utils.Utility;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class IncomeDetailActivity extends AppCompatActivity {
 
@@ -72,5 +79,38 @@ public class IncomeDetailActivity extends AppCompatActivity {
         double totalSalary = Double.parseDouble(mContracts.getSalary()) + Double.parseDouble(mContracts.getBonusProject());
         incomeAdapter.submitList(dayAtCompnany);
         binding.tvTotalIncome.setText(Utility.currencyFormat(totalSalary * dayAtCompnany.size()));
+
+        binding.btnSendMail.setOnClickListener(v -> {
+            RetrofitClient.getInstance().getApiClient()
+                    .sendMail(mEmployment.getEmail()).enqueue(
+                    new Callback<BaseDto>() {
+                        @Override
+                        public void onResponse(Call<BaseDto> call, Response<BaseDto> response) {
+                            if (response.body() != null) {
+                                if (response.body().getSuccess()) {
+                                    Toast.makeText(IncomeDetailActivity.this,
+                                            "Thông tin lương đã được gửi đến mail,vui lòng kiểm tra!",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(IncomeDetailActivity.this,
+                                            response.body().getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(IncomeDetailActivity.this,
+                                        "Lỗi server",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<BaseDto> call, Throwable t) {
+                            Log.d("CheckApp", t.toString());
+                            Toast.makeText(IncomeDetailActivity.this,
+                                    "Lỗi server",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
     }
 }

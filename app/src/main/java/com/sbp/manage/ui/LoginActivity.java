@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 if (isSuccess2) {
                                                     Utility.dismissWaitingDialog();
                                                     // TODO: di chuyen den dashboard
-                                                    startActivity(new Intent(LoginActivity.this, EmploymentListActivity.class));
+                                                    startActivity(new Intent(LoginActivity.this, ContractActivity.class));
                                                     finish();
                                                 } else {
                                                     showErrorLogin();
