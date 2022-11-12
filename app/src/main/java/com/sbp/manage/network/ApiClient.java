@@ -12,17 +12,17 @@ import com.sbp.manage.network.params.LoginParams;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import com.sbp.manage.network.dto.LoginDto;
-import com.sbp.manage.network.params.LoginParams;
-
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.Headers;
+import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 public interface ApiClient {
 
-    @Headers("Content-Type: application/json")
     @POST("/user/login")
     Call<LoginDto> login(@Body LoginParams params);
 
@@ -30,13 +30,22 @@ public interface ApiClient {
     Call<EmploymentDto> getEmployments();
 
     @POST("/mail")
-    Call<BaseDto> sendMail();
+    @Multipart
+    Call<BaseDto> sendMail(@Part("mailTest") String mail);
 
     @POST("/contract/contracts")
     Call<ContractDto> getAllContracts();
 
     @POST("/contract")
-    Call<BaseDto> createContract(@Body CreateContractParams params);
+    Call<BaseDto> createContract(@Body ContractDto.Contracts params);
+
+    @DELETE("/contract/contracts")
+    Call<BaseDto> deleteContract(@Query("idContract") String idContract);
+
+    @PUT("/contract/contracts")
+    @Multipart
+    Call<BaseDto> updateContract(@Part("idContract") String idContract,
+            @Part("newContract") ContractDto.Contracts contracts);
 
     @POST("/employment")
     Call<CreateEmploymentDto> createEmployment(@Body CreateEmploymentParams params);
