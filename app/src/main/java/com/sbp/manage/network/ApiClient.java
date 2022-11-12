@@ -8,13 +8,16 @@ import com.sbp.manage.network.dto.EmploymentTimeDto;
 import com.sbp.manage.network.dto.LoginDto;
 import com.sbp.manage.network.params.CreateContractParams;
 import com.sbp.manage.network.params.CreateEmploymentParams;
+import com.sbp.manage.network.params.DeleteContractParams;
 import com.sbp.manage.network.params.LoginParams;
+import com.sbp.manage.network.params.UpdateContractParams;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.HTTP;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -30,22 +33,22 @@ public interface ApiClient {
     Call<EmploymentDto> getEmployments();
 
     @POST("/mail")
-    @Multipart
-    Call<BaseDto> sendMail(@Part("mailTest") String mail);
+    Call<BaseDto> sendMail();
+
+    @POST("/mail/salary")
+    Call<BaseDto> sendSalaryMail();
 
     @POST("/contract/contracts")
     Call<ContractDto> getAllContracts();
 
     @POST("/contract")
-    Call<BaseDto> createContract(@Body ContractDto.Contracts params);
+    Call<BaseDto> createContract(@Body CreateContractParams params);
 
-    @DELETE("/contract/contracts")
-    Call<BaseDto> deleteContract(@Query("idContract") String idContract);
+    @HTTP(method = "DELETE", path = "/contract/contracts", hasBody = true)
+    Call<BaseDto> deleteContract(@Body DeleteContractParams params);
 
-    @PUT("/contract/contracts")
-    @Multipart
-    Call<BaseDto> updateContract(@Part("idContract") String idContract,
-            @Part("newContract") ContractDto.Contracts contracts);
+    @HTTP(method = "PUT", path = "/contract/contracts", hasBody = true)
+    Call<BaseDto> updateContract(@Body UpdateContractParams params);
 
     @POST("/employment")
     Call<CreateEmploymentDto> createEmployment(@Body CreateEmploymentParams params);

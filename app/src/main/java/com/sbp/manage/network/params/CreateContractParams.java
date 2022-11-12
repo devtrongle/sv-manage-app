@@ -3,6 +3,9 @@ package com.sbp.manage.network.params;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CreateContractParams {
     @Expose
     @SerializedName("bonusProject")
@@ -80,5 +83,9 @@ public class CreateContractParams {
 
     public void setEmploymentId(String employmentId) {
         this.employmentId = employmentId;
+    }
+
+    public CreateContractParams() {
+        this.createAt = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 }

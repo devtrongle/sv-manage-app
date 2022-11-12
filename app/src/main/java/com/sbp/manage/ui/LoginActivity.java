@@ -169,10 +169,14 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(@NonNull Call<EmploymentTimeDto> call,
                                                    @NonNull Response<EmploymentTimeDto> response) {
-                                if (response.body() != null && response.body().getSuccess()) {
-                                    ManageApplication.sEmploymentTime.clear();
-                                    ManageApplication.sEmploymentTime.addAll(response.body().getList());
-                                    callback.onCompleted(true, "");
+                                if (response.body() != null) {
+                                    if (response.body().getSuccess()) {
+                                        ManageApplication.sEmploymentTime.clear();
+                                        ManageApplication.sEmploymentTime.addAll(response.body().getList());
+                                        callback.onCompleted(true, "");
+                                    } else {
+                                        callback.onCompleted(false, "No data");
+                                    }
                                 } else {
                                     callback.onCompleted(false, "No data");
                                 }

@@ -14,20 +14,6 @@
         android:theme="@style/Theme.ManageApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.UpdateContractActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.ContractActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.IncomeDetailActivity"
             android:exported="false">
             <meta-data

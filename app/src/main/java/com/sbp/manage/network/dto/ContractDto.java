@@ -187,5 +187,15 @@ public class ContractDto {
 
             return -1;
         }
+
+        public int indexInEmployment() {
+            for (int i = 0; i < ManageApplication.sEmploymentList.size(); i++) {
+                if (ManageApplication.sContractList.get(i).getEmploymentId().equals(getEmploymentId())){
+                    return i;
+                }
+            }
+
+            return -1;
+        }
     }
 }

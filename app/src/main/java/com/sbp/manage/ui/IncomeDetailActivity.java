@@ -79,38 +79,5 @@ public class IncomeDetailActivity extends AppCompatActivity {
         double totalSalary = Double.parseDouble(mContracts.getSalary()) + Double.parseDouble(mContracts.getBonusProject());
         incomeAdapter.submitList(dayAtCompnany);
         binding.tvTotalIncome.setText(Utility.currencyFormat(totalSalary * dayAtCompnany.size()));
-
-        binding.btnSendMail.setOnClickListener(v -> {
-            RetrofitClient.getInstance().getApiClient()
-                    .sendMail(mEmployment.getEmail()).enqueue(
-                    new Callback<BaseDto>() {
-                        @Override
-                        public void onResponse(Call<BaseDto> call, Response<BaseDto> response) {
-                            if (response.body() != null) {
-                                if (response.body().getSuccess()) {
-                                    Toast.makeText(IncomeDetailActivity.this,
-                                            "Thông tin lương đã được gửi đến mail,vui lòng kiểm tra!",
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(IncomeDetailActivity.this,
-                                            response.body().getMessage(),
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(IncomeDetailActivity.this,
-                                        "Lỗi server",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<BaseDto> call, Throwable t) {
-                            Log.d("CheckApp", t.toString());
-                            Toast.makeText(IncomeDetailActivity.this,
-                                    "Lỗi server",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        });
     }
 }
