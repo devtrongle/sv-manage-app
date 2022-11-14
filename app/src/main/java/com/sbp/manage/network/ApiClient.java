@@ -11,18 +11,13 @@ import com.sbp.manage.network.params.CreateEmploymentParams;
 import com.sbp.manage.network.params.DeleteContractParams;
 import com.sbp.manage.network.params.LoginParams;
 import com.sbp.manage.network.params.UpdateContractParams;
+import com.sbp.manage.network.params.UpdateEmploymentParams;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.HTTP;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Part;
-import retrofit2.http.Query;
 
 public interface ApiClient {
 
@@ -55,4 +50,10 @@ public interface ApiClient {
 
     @POST("/employment/time")
     Call<EmploymentTimeDto> getAllEmploymentTime();
+
+    @HTTP(method = "PUT", path = "/employment/employments", hasBody = true)
+    Call<BaseDto> updateEmployment(@Body UpdateEmploymentParams params);
+
+    @HTTP(method = "DELETE", path = "/employment/employments", hasBody = true)
+    Call<BaseDto> deleteEmployment(@Body DeleteContractParams params);
 }

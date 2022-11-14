@@ -56,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(new Intent(this, DetailContractActiviy.class));
         });
 
-
         binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

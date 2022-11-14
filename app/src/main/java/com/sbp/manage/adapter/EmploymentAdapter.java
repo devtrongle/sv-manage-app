@@ -9,11 +9,9 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sbp.manage.databinding.EmploymentItemBinding;
-import com.sbp.manage.network.dto.ContractDto;
 import com.sbp.manage.network.dto.EmploymentDto;
 import com.sbp.manage.network.dto.EmploymentTimeDto;
 import com.sbp.manage.ui.ManageApplication;
-import com.sbp.manage.utils.Utility;
 
 public class EmploymentAdapter extends ListAdapter<EmploymentDto.Employment, EmploymentAdapter.ViewHolder> {
 
@@ -42,14 +40,14 @@ public class EmploymentAdapter extends ListAdapter<EmploymentDto.Employment, Emp
 
         @Override
         public boolean areItemsTheSame(@NonNull EmploymentDto.Employment oldItem,
-                @NonNull EmploymentDto.Employment newItem) {
-            return false;
+                                       @NonNull EmploymentDto.Employment newItem) {
+            return true;
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull EmploymentDto.Employment oldItem,
-                @NonNull EmploymentDto.Employment newItem) {
-            return false;
+                                          @NonNull EmploymentDto.Employment newItem) {
+            return true;
         }
     }
 
@@ -59,10 +57,16 @@ public class EmploymentAdapter extends ListAdapter<EmploymentDto.Employment, Emp
         public ViewHolder(@NonNull EmploymentItemBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
-            binding.getRoot().setOnClickListener( v-> {
+            binding.getRoot().setOnClickListener(v -> {
                 if (mIOnClick != null) {
                     mIOnClick.onClick(getAdapterPosition(), getItem(getAdapterPosition()));
                 }
+            });
+            binding.getRoot().setOnLongClickListener(v -> {
+                if (mIOnClick != null) {
+                    mIOnClick.onLongClick(getAdapterPosition(), getItem(getAdapterPosition()));
+                }
+                return true;
             });
         }
 
@@ -77,15 +81,16 @@ public class EmploymentAdapter extends ListAdapter<EmploymentDto.Employment, Emp
                 }
             }
             if (listEmployment != null) {
-                EmploymentTimeDto.DayAtCompnany latestDayAtCompany = listEmployment.getDayAtCompany().get(listEmployment.getDayAtCompany().size() -1);
+                EmploymentTimeDto.DayAtCompnany latestDayAtCompany = listEmployment.getDayAtCompany().get(listEmployment.getDayAtCompany().size() - 1);
                 binding.tvSalaryMonth.setText(latestDayAtCompany.getRealSalary(employment.get_id()));
                 binding.tvSalaryYear.setText(listEmployment.getRealSalaryYear());
             }
-
         }
     }
 
     public interface IOnClick {
         void onClick(int position, EmploymentDto.Employment employment);
+
+        void onLongClick(int position, EmploymentDto.Employment employment);
     }
 }

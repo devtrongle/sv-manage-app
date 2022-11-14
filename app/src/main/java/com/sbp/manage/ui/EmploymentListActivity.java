@@ -1,16 +1,13 @@
 package com.sbp.manage.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.sbp.manage.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.sbp.manage.adapter.EmploymentAdapter;
 import com.sbp.manage.databinding.ActivityEmploymentListBinding;
 import com.sbp.manage.network.RetrofitClient;
@@ -41,12 +38,25 @@ public class EmploymentListActivity extends AppCompatActivity {
         mEmploymentAdapter.submitList(ManageApplication.sEmploymentList);
         binding.recyclerViewEmployment.setAdapter(mEmploymentAdapter);
 
-        mEmploymentAdapter.setOnClick((position, employment) -> {
-            Intent intent = new Intent(EmploymentListActivity.this, IncomeDetailActivity.class);
-            intent.putExtra("data", employment);
-            startActivity(intent);
+        mEmploymentAdapter.setOnClick(new EmploymentAdapter.IOnClick() {
+            @Override
+            public void onClick(int position, EmploymentDto.Employment employment) {
+                Intent intent = new Intent(EmploymentListActivity.this, IncomeDetailActivity.class);
+                intent.putExtra("data", employment);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(int position, EmploymentDto.Employment employment) {
+                Intent intent = new Intent(EmploymentListActivity.this, DetailEmploymentActivity.class);
+                intent.putExtra("data", employment);
+                startActivity(intent);
+            }
         });
 
+        binding.fab.setOnClickListener(view -> {
+            startActivity(new Intent(this, DetailEmploymentActivity.class));
+        });
 
         binding.btnSendMailSalary.setOnClickListener(v -> {
             RetrofitClient.getInstance().getApiClient()
@@ -113,5 +123,32 @@ public class EmploymentListActivity extends AppCompatActivity {
                                 }
                             });
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RetrofitClient.getInstance()
+                .getApiClient()
+                .getEmployments()
+                .enqueue(
+                        new Callback<EmploymentDto>() {
+                            @Override
+                            public void onResponse(@NonNull Call<EmploymentDto> call,
+                                                   @NonNull Response<EmploymentDto> response) {
+                                if (response.body() != null && response.body().isSuccess()) {
+                                    ManageApplication.sEmploymentList.clear();
+                                    ManageApplication.sEmploymentList.addAll(response.body().getEmployment());
+                                    mEmploymentAdapter.submitList(ManageApplication.sEmploymentList);
+                                    mEmploymentAdapter.notifyDataSetChanged();
+                                } else {
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(@NonNull Call<EmploymentDto> call, @NonNull Throwable t) {
+                            }
+                        });
+
     }
 }

@@ -1,60 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.EmploymentListActivity">
 
     <androidx.appcompat.widget.Toolbar
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:title="Danh sách nhân viên"
-        android:background="@color/color_toolbar"
-        app:titleTextColor="@color/white"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"/>
+        android:background="@color/color_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Danh sách nhân viên"
+        app:titleTextColor="@color/white" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <androidx.appcompat.widget.AppCompatButton
-            android:drawablePadding="5dp"
-            android:layout_marginHorizontal="20dp"
-            android:id="@+id/btn_send_mail_salary"
-            android:layout_gravity="end"
-            android:drawableStart="@drawable/ic_baseline_send_24"
-            android:textAllCaps="false"
-            android:background="#00FFFFFF"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:text="Gửi bảng lương"/>
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:drawablePadding="5dp"
-            android:layout_marginHorizontal="20dp"
-            android:id="@+id/btn_send_mail2"
-            android:layout_gravity="end"
-            android:drawableStart="@drawable/ic_baseline_send_24"
-            android:textAllCaps="false"
-            android:background="#00FFFFFF"
+            android:id="@+id/btn_send_mail_salary"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
-            android:text="Gửi bảng chấm công"/>
-    </LinearLayout>
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/ic_baseline_send_24"
+            android:drawablePadding="5dp"
+            android:text="Gửi bảng lương"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_send_mail2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_send_mail2"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/ic_baseline_send_24"
+            android:drawablePadding="5dp"
+            android:text="Gửi bảng chấm công"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toStartOf="@id/btn_send_mail_salary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_employment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/employment_item"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:id="@+id/recycler_view_employment"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout"
+        tools:listitem="@layout/employment_item" />
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_baseline_add_24"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
