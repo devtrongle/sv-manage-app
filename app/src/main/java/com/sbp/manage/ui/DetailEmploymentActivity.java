@@ -33,8 +33,8 @@ public class DetailEmploymentActivity extends AppCompatActivity {
 
     private ActivityDetailEmploymentBinding binding;
     private EmploymentDto.Employment mEmployment = null;
-    private Context mContext = this;
-    private int mPosition = 0;
+    private final Context mContext = this;
+    private final int mPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +91,7 @@ public class DetailEmploymentActivity extends AppCompatActivity {
             params.setJoinDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
             String text = binding.spinnerSex.getSelectedItem().toString();
             Boolean isMale;
-            if (text.equals("Name")) {
-                isMale = true;
-            } else {
-                isMale = false;
-            }
+            isMale = text.equals("Name");
             params.setSex(isMale);
 
             RetrofitClient.getInstance()
@@ -103,7 +99,8 @@ public class DetailEmploymentActivity extends AppCompatActivity {
                     .createEmployment(params)
                     .enqueue(new Callback<CreateEmploymentDto>() {
                         @Override
-                        public void onResponse(Call<CreateEmploymentDto> call, Response<CreateEmploymentDto> response) {
+                        public void onResponse(Call<CreateEmploymentDto> call,
+                                Response<CreateEmploymentDto> response) {
                             if (response.body().getSuccess()) {
                                 Toast.makeText(mContext,
                                         "Thêm thành công!",
@@ -167,15 +164,11 @@ public class DetailEmploymentActivity extends AppCompatActivity {
             params.setJoinDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
             String text = binding.spinnerSex.getSelectedItem().toString();
             Boolean isMale;
-            if (text.equals("Name")) {
-                isMale = true;
-            } else {
-                isMale = false;
-            }
+            isMale = text.equals("Name");
             params.setSex(isMale);
             RetrofitClient.getInstance()
                     .getApiClient()
-                    .updateEmployment(new UpdateEmploymentParams(mEmployment.get_id(),params))
+                    .updateEmployment(new UpdateEmploymentParams(mEmployment.get_id(), params))
                     .enqueue(new Callback<BaseDto>() {
                         @Override
                         public void onResponse(Call<BaseDto> call, Response<BaseDto> response) {

@@ -16,7 +16,8 @@ import com.sbp.manage.network.dto.ContractDto;
 
 import java.util.ArrayList;
 
-public class ContractAdapter extends ListAdapter<ContractDto.Contracts, ContractAdapter.ViewHolder> {
+public class ContractAdapter extends
+        ListAdapter<ContractDto.Contracts, ContractAdapter.ViewHolder> {
     private Context context;
     private ArrayList<ContractDto.Contracts> list = new ArrayList<>();
 
@@ -33,12 +34,14 @@ public class ContractAdapter extends ListAdapter<ContractDto.Contracts, Contract
     public static class DiffCallback extends DiffUtil.ItemCallback<ContractDto.Contracts> {
 
         @Override
-        public boolean areItemsTheSame(@NonNull ContractDto.Contracts oldItem, @NonNull ContractDto.Contracts newItem) {
+        public boolean areItemsTheSame(@NonNull ContractDto.Contracts oldItem,
+                @NonNull ContractDto.Contracts newItem) {
             return false;
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull ContractDto.Contracts oldItem, @NonNull ContractDto.Contracts newItem) {
+        public boolean areContentsTheSame(@NonNull ContractDto.Contracts oldItem,
+                @NonNull ContractDto.Contracts newItem) {
             return false;
         }
     }

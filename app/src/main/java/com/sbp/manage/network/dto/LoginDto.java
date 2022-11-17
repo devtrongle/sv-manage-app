@@ -1,7 +1,5 @@
 package com.sbp.manage.network.dto;
 
-import androidx.annotation.NonNull;
-
 import com.google.gson.annotations.SerializedName;
 
 public class LoginDto {
@@ -13,6 +11,10 @@ public class LoginDto {
     private boolean isAdmin;
     @SerializedName("username")
     private String username;
+    @SerializedName("email")
+    private String email;
+
+    private String password;
 
     public LoginDto(boolean success, String message, boolean isAdmin, String username) {
         this.success = success;
@@ -56,13 +58,30 @@ public class LoginDto {
         this.username = username;
     }
 
-    @NonNull
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "LoginDto{" +
                 "success=" + success +
                 ", message='" + message + '\'' +
                 ", isAdmin=" + isAdmin +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

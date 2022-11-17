@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class BaseDto{
+public class BaseDto {
     @Expose
     @SerializedName("message")
     private String message;

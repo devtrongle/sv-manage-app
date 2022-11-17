@@ -13,7 +13,8 @@ import com.sbp.manage.network.dto.EmploymentDto;
 import com.sbp.manage.network.dto.EmploymentTimeDto;
 import com.sbp.manage.ui.ManageApplication;
 
-public class EmploymentAdapter extends ListAdapter<EmploymentDto.Employment, EmploymentAdapter.ViewHolder> {
+public class EmploymentAdapter extends
+        ListAdapter<EmploymentDto.Employment, EmploymentAdapter.ViewHolder> {
 
     private IOnClick mIOnClick;
 
@@ -28,7 +29,9 @@ public class EmploymentAdapter extends ListAdapter<EmploymentDto.Employment, Emp
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(EmploymentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(
+                EmploymentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent,
+                        false));
     }
 
     @Override
@@ -40,19 +43,19 @@ public class EmploymentAdapter extends ListAdapter<EmploymentDto.Employment, Emp
 
         @Override
         public boolean areItemsTheSame(@NonNull EmploymentDto.Employment oldItem,
-                                       @NonNull EmploymentDto.Employment newItem) {
+                @NonNull EmploymentDto.Employment newItem) {
             return true;
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull EmploymentDto.Employment oldItem,
-                                          @NonNull EmploymentDto.Employment newItem) {
+                @NonNull EmploymentDto.Employment newItem) {
             return true;
         }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private EmploymentItemBinding binding;
+        private final EmploymentItemBinding binding;
 
         public ViewHolder(@NonNull EmploymentItemBinding itemView) {
             super(itemView.getRoot());
@@ -62,11 +65,11 @@ public class EmploymentAdapter extends ListAdapter<EmploymentDto.Employment, Emp
                     mIOnClick.onClick(getAdapterPosition(), getItem(getAdapterPosition()));
                 }
             });
-            binding.getRoot().setOnLongClickListener(v -> {
+
+            binding.imvEdit.setOnClickListener(v -> {
                 if (mIOnClick != null) {
                     mIOnClick.onLongClick(getAdapterPosition(), getItem(getAdapterPosition()));
                 }
-                return true;
             });
         }
 
@@ -81,8 +84,11 @@ public class EmploymentAdapter extends ListAdapter<EmploymentDto.Employment, Emp
                 }
             }
             if (listEmployment != null) {
-                EmploymentTimeDto.DayAtCompnany latestDayAtCompany = listEmployment.getDayAtCompany().get(listEmployment.getDayAtCompany().size() - 1);
-                binding.tvSalaryMonth.setText(latestDayAtCompany.getRealSalary(employment.get_id()));
+                EmploymentTimeDto.DayAtCompnany latestDayAtCompany =
+                        listEmployment.getDayAtCompany().get(
+                                listEmployment.getDayAtCompany().size() - 1);
+                binding.tvSalaryMonth.setText(
+                        latestDayAtCompany.getRealSalary(employment.get_id()));
                 binding.tvSalaryYear.setText(listEmployment.getRealSalaryYear());
             }
         }

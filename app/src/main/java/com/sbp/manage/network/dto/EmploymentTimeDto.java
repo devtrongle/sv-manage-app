@@ -101,8 +101,9 @@ public class EmploymentTimeDto {
 
         public double getRealSalaryDouble(String idEmployment) {
             com.sbp.manage.network.dto.ContractDto.Contracts contracts = null;
-            for (com.sbp.manage.network.dto.ContractDto.Contracts c : ManageApplication.sContractList) {
-                if (c.getEmploymentId().equals(idEmployment)){
+            for (com.sbp.manage.network.dto.ContractDto.Contracts c :
+                    ManageApplication.sContractList) {
+                if (c.getEmploymentId().equals(idEmployment)) {
                     contracts = c;
                     break;
                 }
@@ -112,13 +113,15 @@ public class EmploymentTimeDto {
             }
 
             double salaryInDay = Double.parseDouble(contracts.getSalary()) / 30;
-            return (salaryInDay * days.size()) + Double.parseDouble(contracts.getBonusProject()) - Double.parseDouble(contracts.getSocialInsurance());
+            return (salaryInDay * days.size()) + Double.parseDouble(contracts.getBonusProject())
+                    - Double.parseDouble(contracts.getSocialInsurance());
         }
 
         public String getRealSalary(String idEmployment) {
             com.sbp.manage.network.dto.ContractDto.Contracts contracts = null;
-            for (com.sbp.manage.network.dto.ContractDto.Contracts c : ManageApplication.sContractList) {
-                if (c.getEmploymentId().equals(idEmployment)){
+            for (com.sbp.manage.network.dto.ContractDto.Contracts c :
+                    ManageApplication.sContractList) {
+                if (c.getEmploymentId().equals(idEmployment)) {
                     contracts = c;
                     break;
                 }
@@ -128,7 +131,9 @@ public class EmploymentTimeDto {
             }
 
             double salaryInDay = Double.parseDouble(contracts.getSalary()) / 30;
-            double tmp = (salaryInDay * days.size()) + Double.parseDouble(contracts.getBonusProject()) - Double.parseDouble(contracts.getSocialInsurance());
+            double tmp = (salaryInDay * days.size()) + Double.parseDouble(
+                    contracts.getBonusProject()) - Double.parseDouble(
+                    contracts.getSocialInsurance());
             return Utility.currencyFormat(tmp);
         }
     }

@@ -48,7 +48,8 @@ public class EmploymentListActivity extends AppCompatActivity {
 
             @Override
             public void onLongClick(int position, EmploymentDto.Employment employment) {
-                Intent intent = new Intent(EmploymentListActivity.this, DetailEmploymentActivity.class);
+                Intent intent = new Intent(EmploymentListActivity.this,
+                        DetailEmploymentActivity.class);
                 intent.putExtra("data", employment);
                 startActivity(intent);
             }
@@ -63,11 +64,13 @@ public class EmploymentListActivity extends AppCompatActivity {
                     .sendSalaryMail().enqueue(
                             new Callback<BaseDto>() {
                                 @Override
-                                public void onResponse(Call<BaseDto> call, Response<BaseDto> response) {
+                                public void onResponse(Call<BaseDto> call,
+                                        Response<BaseDto> response) {
                                     if (response.body() != null) {
                                         if (response.body().getSuccess()) {
                                             Toast.makeText(EmploymentListActivity.this,
-                                                    "Thông tin bản lương đã được gửi đến mail,vui lòng kiểm tra!",
+                                                    "Thông tin bản lương đã được gửi đến mail,vui"
+                                                            + " lòng kiểm tra!",
                                                     Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(EmploymentListActivity.this,
@@ -96,11 +99,13 @@ public class EmploymentListActivity extends AppCompatActivity {
                     .sendMail().enqueue(
                             new Callback<BaseDto>() {
                                 @Override
-                                public void onResponse(Call<BaseDto> call, Response<BaseDto> response) {
+                                public void onResponse(Call<BaseDto> call,
+                                        Response<BaseDto> response) {
                                     if (response.body() != null) {
                                         if (response.body().getSuccess()) {
                                             Toast.makeText(EmploymentListActivity.this,
-                                                    "Thông tin bảng chấm công đã được gửi đến mail,vui lòng kiểm tra!",
+                                                    "Thông tin bảng chấm công đã được gửi đến "
+                                                            + "mail,vui lòng kiểm tra!",
                                                     Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(EmploymentListActivity.this,
@@ -135,18 +140,21 @@ public class EmploymentListActivity extends AppCompatActivity {
                         new Callback<EmploymentDto>() {
                             @Override
                             public void onResponse(@NonNull Call<EmploymentDto> call,
-                                                   @NonNull Response<EmploymentDto> response) {
+                                    @NonNull Response<EmploymentDto> response) {
                                 if (response.body() != null && response.body().isSuccess()) {
                                     ManageApplication.sEmploymentList.clear();
-                                    ManageApplication.sEmploymentList.addAll(response.body().getEmployment());
-                                    mEmploymentAdapter.submitList(ManageApplication.sEmploymentList);
+                                    ManageApplication.sEmploymentList.addAll(
+                                            response.body().getEmployment());
+                                    mEmploymentAdapter.submitList(
+                                            ManageApplication.sEmploymentList);
                                     mEmploymentAdapter.notifyDataSetChanged();
                                 } else {
                                 }
                             }
 
                             @Override
-                            public void onFailure(@NonNull Call<EmploymentDto> call, @NonNull Throwable t) {
+                            public void onFailure(@NonNull Call<EmploymentDto> call,
+                                    @NonNull Throwable t) {
                             }
                         });
 

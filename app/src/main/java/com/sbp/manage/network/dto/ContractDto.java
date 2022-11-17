@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
 import com.sbp.manage.ui.ManageApplication;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContractDto {
@@ -180,7 +179,7 @@ public class ContractDto {
 
         public int indexOf() {
             for (int i = 0; i < ManageApplication.sContractList.size(); i++) {
-                if (ManageApplication.sContractList.get(i).get_id().equals(get_id())){
+                if (ManageApplication.sContractList.get(i).get_id().equals(get_id())) {
                     return i;
                 }
             }
@@ -190,7 +189,8 @@ public class ContractDto {
 
         public int indexInEmployment() {
             for (int i = 0; i < ManageApplication.sEmploymentList.size(); i++) {
-                if (ManageApplication.sContractList.get(i).getEmploymentId().equals(getEmploymentId())){
+                if (ManageApplication.sContractList.get(i).getEmploymentId().equals(
+                        getEmploymentId())) {
                     return i;
                 }
             }

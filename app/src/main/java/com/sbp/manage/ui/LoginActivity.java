@@ -26,12 +26,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    private static String TAG = "LoginActivity";
+    private static final String TAG = "LoginActivity";
 
     private ActivityLoginBinding binding;
-
-    public static String account;
-    public static Boolean isAdmin;
 
     private EditText mEdtUsername;
     private EditText mEdtPassword;
@@ -60,12 +57,10 @@ public class LoginActivity extends AppCompatActivity {
                         .login(new LoginParams(username, pwd))
                         .enqueue(new Callback<LoginDto>() {
                             @Override
-                            public void onResponse(@NonNull Call<LoginDto> call, @NonNull Response<LoginDto> response) {
+                            public void onResponse(@NonNull Call<LoginDto> call,
+                                    @NonNull Response<LoginDto> response) {
                                 if (response.body() != null && response.body().isSuccess()) {
                                     Log.d(TAG, response.body().toString());
-//                                    Pref.getInstance().saveIsAdmin(activity, response.body().isAdmin());
-                                    isAdmin = response.body().isAdmin();
-                                    account = response.body().getUsername();
                                     getAllContracts((isSuccess, msg) -> {
                                         if (isSuccess) {
                                             getAllEmployments((isSuccess1, msg1) -> {
@@ -73,8 +68,20 @@ public class LoginActivity extends AppCompatActivity {
                                                     getAllEmploymentTime((isSuccess2, msg2) -> {
                                                         if (isSuccess2) {
                                                             Utility.dismissWaitingDialog();
-                                                            // TODO: di chuyen den dashboard
-                                                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                                            ManageApplication.sIsAdmin =
+                                                                    response.body().isAdmin();
+                                                            ManageApplication.sAccount =
+                                                                    response.body().getUsername();
+                                                            ManageApplication.sEmail =
+                                                                    response.body().getEmail();
+                                                            LoginDto loginDto = response.body();
+                                                            loginDto.setPassword(pwd);
+                                                            Utility.saveLogin(LoginActivity.this,
+                                                                    loginDto);
+
+                                                            startActivity(
+                                                                    new Intent(LoginActivity.this,
+                                                                            HomeActivity.class));
                                                             finish();
                                                         } else {
                                                             showErrorLogin();
@@ -95,7 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(@NonNull Call<LoginDto> call, @NonNull Throwable t) {
+                            public void onFailure(@NonNull Call<LoginDto> call,
+                                    @NonNull Throwable t) {
                                 showErrorLogin();
                                 Log.e(TAG, t.toString());
                             }
@@ -118,10 +126,11 @@ public class LoginActivity extends AppCompatActivity {
                         new Callback<EmploymentDto>() {
                             @Override
                             public void onResponse(@NonNull Call<EmploymentDto> call,
-                                                   @NonNull Response<EmploymentDto> response) {
+                                    @NonNull Response<EmploymentDto> response) {
                                 if (response.body() != null && response.body().isSuccess()) {
                                     ManageApplication.sEmploymentList.clear();
-                                    ManageApplication.sEmploymentList.addAll(response.body().getEmployment());
+                                    ManageApplication.sEmploymentList.addAll(
+                                            response.body().getEmployment());
                                     callback.onCompleted(true, "");
                                 } else {
                                     callback.onCompleted(false, "No data");
@@ -129,7 +138,8 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(@NonNull Call<EmploymentDto> call, @NonNull Throwable t) {
+                            public void onFailure(@NonNull Call<EmploymentDto> call,
+                                    @NonNull Throwable t) {
                                 callback.onCompleted(false, t.getMessage());
                             }
                         });
@@ -143,10 +153,11 @@ public class LoginActivity extends AppCompatActivity {
                         new Callback<ContractDto>() {
                             @Override
                             public void onResponse(@NonNull Call<ContractDto> call,
-                                                   @NonNull Response<ContractDto> response) {
+                                    @NonNull Response<ContractDto> response) {
                                 if (response.body() != null && response.body().getSuccess()) {
                                     ManageApplication.sContractList.clear();
-                                    ManageApplication.sContractList.addAll(response.body().getContracts());
+                                    ManageApplication.sContractList.addAll(
+                                            response.body().getContracts());
                                     callback.onCompleted(true, "");
                                 } else {
                                     callback.onCompleted(false, "No data");
@@ -154,7 +165,8 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(@NonNull Call<ContractDto> call, @NonNull Throwable t) {
+                            public void onFailure(@NonNull Call<ContractDto> call,
+                                    @NonNull Throwable t) {
                                 callback.onCompleted(false, t.getMessage());
                             }
                         });
@@ -168,11 +180,12 @@ public class LoginActivity extends AppCompatActivity {
                         new Callback<EmploymentTimeDto>() {
                             @Override
                             public void onResponse(@NonNull Call<EmploymentTimeDto> call,
-                                                   @NonNull Response<EmploymentTimeDto> response) {
+                                    @NonNull Response<EmploymentTimeDto> response) {
                                 if (response.body() != null) {
                                     if (response.body().getSuccess()) {
                                         ManageApplication.sEmploymentTime.clear();
-                                        ManageApplication.sEmploymentTime.addAll(response.body().getList());
+                                        ManageApplication.sEmploymentTime.addAll(
+                                                response.body().getList());
                                         callback.onCompleted(true, "");
                                     } else {
                                         callback.onCompleted(false, "No data");
@@ -183,13 +196,14 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(@NonNull Call<EmploymentTimeDto> call, @NonNull Throwable t) {
+                            public void onFailure(@NonNull Call<EmploymentTimeDto> call,
+                                    @NonNull Throwable t) {
                                 callback.onCompleted(false, t.getMessage());
                             }
                         });
     }
 
-    private interface ICallback {
+    public interface ICallback {
         void onCompleted(boolean isSuccess, String msg);
     }
 }

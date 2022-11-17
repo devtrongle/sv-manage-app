@@ -32,7 +32,7 @@ public class DetailContractActiviy extends AppCompatActivity {
 
     private ActivityDetailContractBinding binding;
     private ContractDto.Contracts mContracts = null;
-    private Context mContext = this;
+    private final Context mContext = this;
     private int mPosition = 0;
 
     @Override
@@ -66,7 +66,6 @@ public class DetailContractActiviy extends AppCompatActivity {
         }
 
 
-
         List<String> name = new ArrayList<>();
         for (EmploymentDto.Employment employment : ManageApplication.sEmploymentList) {
             name.add(employment.getName());
@@ -80,7 +79,7 @@ public class DetailContractActiviy extends AppCompatActivity {
         if (mContracts != null) {
             for (int i = 0; i < ManageApplication.sEmploymentList.size(); i++) {
                 if (mContracts.getEmploymentId()
-                        .equals(ManageApplication.sEmploymentList.get(i).get_id())){
+                        .equals(ManageApplication.sEmploymentList.get(i).get_id())) {
                     mPosition = i;
                     break;
                 }
@@ -108,7 +107,8 @@ public class DetailContractActiviy extends AppCompatActivity {
             public void onClick(View v) {
                 RetrofitClient.getInstance()
                         .getApiClient()
-                        .deleteContract(new DeleteContractParams(mContracts.get_id(), mContracts.getEmploymentId()))
+                        .deleteContract(new DeleteContractParams(mContracts.get_id(),
+                                mContracts.getEmploymentId()))
                         .enqueue(new Callback<BaseDto>() {
                             @Override
                             public void onResponse(
@@ -119,10 +119,12 @@ public class DetailContractActiviy extends AppCompatActivity {
                                                 "Xoá hợp đồng thành công!",
                                                 Toast.LENGTH_SHORT).show();
                                         if (mContracts.indexOf() != -1) {
-                                            ManageApplication.sContractList.remove(mContracts.indexOf());
+                                            ManageApplication.sContractList.remove(
+                                                    mContracts.indexOf());
                                         }
                                         if (mContracts.indexInEmployment() != -1) {
-                                            ManageApplication.sEmploymentList.remove(mContracts.indexInEmployment());
+                                            ManageApplication.sEmploymentList.remove(
+                                                    mContracts.indexInEmployment());
                                         }
                                         finish();
                                     } else {
@@ -172,7 +174,8 @@ public class DetailContractActiviy extends AppCompatActivity {
                                         Toast.makeText(mContext,
                                                 "Cập nhật thành công!",
                                                 Toast.LENGTH_SHORT).show();
-                                        ManageApplication.sContractList.set(mContracts.indexOf(),mContracts);
+                                        ManageApplication.sContractList.set(mContracts.indexOf(),
+                                                mContracts);
                                         finish();
                                     } else {
                                         Toast.makeText(mContext,
@@ -189,7 +192,7 @@ public class DetailContractActiviy extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<BaseDto> call, Throwable t) {
                                 Utility.dismissWaitingDialog();
-                                Log.e("CheckApp",t.toString());
+                                Log.e("CheckApp", t.toString());
                                 Toast.makeText(mContext,
                                         "Cập nhật thất bại!",
                                         Toast.LENGTH_SHORT).show();
@@ -203,7 +206,8 @@ public class DetailContractActiviy extends AppCompatActivity {
             public void onClick(View v) {
 //                Utility.showWaitingDialog(mContext);
                 CreateContractParams createContractParams = new CreateContractParams();
-                createContractParams.setEmploymentId(ManageApplication.sEmploymentList.get(mPosition).get_id());
+                createContractParams.setEmploymentId(
+                        ManageApplication.sEmploymentList.get(mPosition).get_id());
                 createContractParams.setContent(binding.edtContent.getText().toString());
                 createContractParams.setDescriptionWork(binding.edtDesWork.getText().toString());
                 createContractParams.setBonusProject(binding.edtBonus.getText().toString());
@@ -238,7 +242,7 @@ public class DetailContractActiviy extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<BaseDto> call, Throwable t) {
                                 Utility.dismissWaitingDialog();
-                                Log.e("CheckApp",t.toString());
+                                Log.e("CheckApp", t.toString());
                                 Toast.makeText(mContext,
                                         "Thêm thất bại!",
                                         Toast.LENGTH_SHORT).show();

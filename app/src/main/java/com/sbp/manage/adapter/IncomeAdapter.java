@@ -9,17 +9,15 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sbp.manage.databinding.EmploymentItemBinding;
 import com.sbp.manage.databinding.IncomeDetailItemBinding;
 import com.sbp.manage.network.dto.ContractDto;
-import com.sbp.manage.network.dto.EmploymentDto;
 import com.sbp.manage.network.dto.EmploymentTimeDto;
-import com.sbp.manage.ui.ManageApplication;
 import com.sbp.manage.utils.Utility;
 
-public class IncomeAdapter extends ListAdapter<EmploymentTimeDto.DayAtCompnany, IncomeAdapter.ViewHolder> {
+public class IncomeAdapter extends
+        ListAdapter<EmploymentTimeDto.DayAtCompnany, IncomeAdapter.ViewHolder> {
 
-    private ContractDto.Contracts mContracts;
+    private final ContractDto.Contracts mContracts;
 
     public IncomeAdapter(ContractDto.Contracts contracts) {
         super(new DiffCallback());
@@ -29,7 +27,9 @@ public class IncomeAdapter extends ListAdapter<EmploymentTimeDto.DayAtCompnany, 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(IncomeDetailItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(
+                IncomeDetailItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent,
+                        false));
     }
 
     @Override
@@ -37,7 +37,8 @@ public class IncomeAdapter extends ListAdapter<EmploymentTimeDto.DayAtCompnany, 
         holder.bind(getItem(position));
     }
 
-    public static class DiffCallback extends DiffUtil.ItemCallback<EmploymentTimeDto.DayAtCompnany> {
+    public static class DiffCallback extends
+            DiffUtil.ItemCallback<EmploymentTimeDto.DayAtCompnany> {
 
         @Override
         public boolean areItemsTheSame(@NonNull EmploymentTimeDto.DayAtCompnany oldItem,
@@ -53,7 +54,7 @@ public class IncomeAdapter extends ListAdapter<EmploymentTimeDto.DayAtCompnany, 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private IncomeDetailItemBinding binding;
+        private final IncomeDetailItemBinding binding;
 
         public ViewHolder(@NonNull IncomeDetailItemBinding itemView) {
             super(itemView.getRoot());
@@ -62,15 +63,18 @@ public class IncomeAdapter extends ListAdapter<EmploymentTimeDto.DayAtCompnany, 
 
         @SuppressLint("SetTextI18n")
         public void bind(EmploymentTimeDto.DayAtCompnany income) {
-            binding.tvMonth.setText("Tháng " + income.getMonth() +":");
+            binding.tvMonth.setText("Tháng " + income.getMonth() + ":");
 
-            double totalSalary = Double.parseDouble(mContracts.getSalary()) + Double.parseDouble(mContracts.getBonusProject());
+            double totalSalary = Double.parseDouble(mContracts.getSalary()) + Double.parseDouble(
+                    mContracts.getBonusProject());
             binding.tvRealSalary.setText(income.getRealSalary(mContracts.getEmploymentId()));
             binding.tvIncome.setText(Utility.currencyFormat(totalSalary));
 
             binding.tvCount.setText(income.getDays().size() + " ngày");
-            binding.tvProjectBonus.setText(Utility.currencyFormat(Double.parseDouble(mContracts.getBonusProject())));
-            binding.tvSocialInsurance.setText(Utility.currencyFormat(Double.parseDouble(mContracts.getSocialInsurance())));
+            binding.tvProjectBonus.setText(
+                    Utility.currencyFormat(Double.parseDouble(mContracts.getBonusProject())));
+            binding.tvSocialInsurance.setText(
+                    Utility.currencyFormat(Double.parseDouble(mContracts.getSocialInsurance())));
         }
     }
 }
