@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.sbp.manage.ui.ManageApplication;
 
 import java.io.Serializable;
 import java.util.List;
@@ -156,6 +157,15 @@ public class EmploymentDto {
                     ", name='" + name + '\'' +
                     ", _id='" + _id + '\'' +
                     '}';
+        }
+
+        public static Employment getEmployment() {
+            for (EmploymentDto.Employment e : ManageApplication.sEmploymentList) {
+                if (e.get_id().equals(ManageApplication.sId)) {
+                    return e;
+                }
+            }
+            return null;
         }
     }
 }

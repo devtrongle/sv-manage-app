@@ -54,6 +54,11 @@ public class HomeActivity extends AppCompatActivity {
         binding.rc.setLayoutManager(new LinearLayoutManager(this));
         binding.rc.setAdapter(contractAdapter);
 
+        mEmployment = EmploymentDto.Employment.getEmployment();
+        if (mEmployment == null) {
+            return;
+        }
+
         binding.tvListEmployment.setOnClickListener(view -> {
             startActivity(new Intent(this, EmploymentListActivity.class));
         });
@@ -141,18 +146,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupUser() {
-
-        for (EmploymentDto.Employment e : ManageApplication.sEmploymentList) {
-            if (e.getEmail().equals(ManageApplication.sEmail)) {
-                mEmployment = e;
-                break;
-            }
-        }
-
-        if (mEmployment == null) {
-            return;
-        }
-
         binding.recyclerViewIncome.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         for (ContractDto.Contracts c : ManageApplication.sContractList) {

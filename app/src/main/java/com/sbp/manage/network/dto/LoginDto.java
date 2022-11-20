@@ -11,19 +11,19 @@ public class LoginDto {
     private boolean isAdmin;
     @SerializedName("username")
     private String username;
-    @SerializedName("email")
-    private String email;
+    @SerializedName("idEmployment")
+    private String idEmployment;
 
     private String password;
 
-    public LoginDto(boolean success, String message, boolean isAdmin, String username) {
+    public LoginDto(boolean success, String message, boolean isAdmin, String username,
+            String idEmployment, String password) {
         this.success = success;
         this.message = message;
         this.isAdmin = isAdmin;
         this.username = username;
-    }
-
-    public LoginDto() {
+        this.idEmployment = idEmployment;
+        this.password = password;
     }
 
     public boolean isSuccess() {
@@ -58,20 +58,20 @@ public class LoginDto {
         this.username = username;
     }
 
+    public String getIdEmployment() {
+        return idEmployment;
+    }
+
+    public void setIdEmployment(String idEmployment) {
+        this.idEmployment = idEmployment;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Override

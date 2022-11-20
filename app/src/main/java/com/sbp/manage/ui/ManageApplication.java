@@ -19,7 +19,7 @@ public class ManageApplication extends Application {
     public static ArrayList<EmploymentTimeDto.ListEmployment> sEmploymentTime;
     public static String sAccount;
     public static Boolean sIsAdmin;
-    public static String sEmail;
+    public static String sId;
 
     @Override
     public void onCreate() {

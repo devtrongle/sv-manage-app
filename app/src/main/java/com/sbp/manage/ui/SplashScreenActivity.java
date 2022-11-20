@@ -57,8 +57,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                                                                 response.body().isAdmin();
                                                         ManageApplication.sAccount =
                                                                 response.body().getUsername();
-                                                        ManageApplication.sEmail =
-                                                                response.body().getEmail();
+                                                        ManageApplication.sId =
+                                                                response.body().getIdEmployment();
                                                         startActivity(new Intent(mContext,
                                                                 HomeActivity.class));
                                                         finish();

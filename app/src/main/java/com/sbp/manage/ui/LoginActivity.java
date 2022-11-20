@@ -72,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
                                                                     response.body().isAdmin();
                                                             ManageApplication.sAccount =
                                                                     response.body().getUsername();
-                                                            ManageApplication.sEmail =
-                                                                    response.body().getEmail();
+                                                            ManageApplication.sId =
+                                                                    response.body().getIdEmployment();
                                                             LoginDto loginDto = response.body();
                                                             loginDto.setPassword(pwd);
                                                             Utility.saveLogin(LoginActivity.this,
