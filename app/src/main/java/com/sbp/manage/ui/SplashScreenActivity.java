@@ -86,6 +86,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                             Log.e(TAG, t.toString());
                         }
                     });
+        } else {
+            showErrorLogin();
         }
 
     }
