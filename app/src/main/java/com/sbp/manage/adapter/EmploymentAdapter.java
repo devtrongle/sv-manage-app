@@ -68,7 +68,13 @@ public class EmploymentAdapter extends
 
             binding.imvEdit.setOnClickListener(v -> {
                 if (mIOnClick != null) {
-                    mIOnClick.onLongClick(getAdapterPosition(), getItem(getAdapterPosition()));
+                    mIOnClick.onClickEdit(getAdapterPosition(), getItem(getAdapterPosition()));
+                }
+            });
+
+            binding.imvDelete.setOnClickListener(v -> {
+                if (mIOnClick != null) {
+                    mIOnClick.onClickDeleted(getAdapterPosition(), getItem(getAdapterPosition()));
                 }
             });
         }
@@ -97,6 +103,8 @@ public class EmploymentAdapter extends
     public interface IOnClick {
         void onClick(int position, EmploymentDto.Employment employment);
 
-        void onLongClick(int position, EmploymentDto.Employment employment);
+        void onClickEdit(int position, EmploymentDto.Employment employment);
+
+        void onClickDeleted(int position, EmploymentDto.Employment employment);
     }
 }
