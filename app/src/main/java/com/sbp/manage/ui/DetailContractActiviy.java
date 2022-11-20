@@ -158,7 +158,7 @@ public class DetailContractActiviy extends AppCompatActivity {
 //                Utility.showWaitingDialog(mContext);
                 mContracts.setContent(binding.edtContent.getText().toString());
                 mContracts.setDescriptionWork(binding.edtDesWork.getText().toString());
-                mContracts.setBonusProject(binding.edtBonus.getText().toString());
+                mContracts.setBonusProject("0");
                 mContracts.setSalary(binding.edtSalary.getText().toString());
                 mContracts.setSocialInsurance(binding.edtBHXH.getText().toString());
 
@@ -210,7 +210,7 @@ public class DetailContractActiviy extends AppCompatActivity {
                         ManageApplication.sEmploymentList.get(mPosition).get_id());
                 createContractParams.setContent(binding.edtContent.getText().toString());
                 createContractParams.setDescriptionWork(binding.edtDesWork.getText().toString());
-                createContractParams.setBonusProject(binding.edtBonus.getText().toString());
+                createContractParams.setBonusProject("0");
                 createContractParams.setSalary(binding.edtSalary.getText().toString());
                 createContractParams.setSocialInsurance(binding.edtBHXH.getText().toString());
                 RetrofitClient.getInstance()

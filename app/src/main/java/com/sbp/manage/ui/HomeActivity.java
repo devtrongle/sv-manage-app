@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
 
         mEmployment = EmploymentDto.Employment.getEmployment();
         if (mEmployment == null) {
-            return;
+//            return;
         }
 
         binding.tvListEmployment.setOnClickListener(view -> {
@@ -243,5 +243,9 @@ public class HomeActivity extends AppCompatActivity {
             binding.chart.setData(data);
         }
         binding.chart.invalidate();
+
+        binding.idContent.setText(mContracts.get_id());
+        binding.content.setText(mContracts.getContent());
+        binding.time.setText(mContracts.getCreateAt());
     }
 }

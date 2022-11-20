@@ -49,17 +49,15 @@ public class DetailEmploymentActivity extends AppCompatActivity {
         if (mEmployment == null) {
             binding.btnAdd.setVisibility(View.VISIBLE);
             binding.btnEdit.setVisibility(View.GONE);
-            binding.btnDelete.setVisibility(View.GONE);
             binding.layoutId.setVisibility(View.GONE);
             binding.toolbar.setTitle("Thêm nhân viên");
         } else {
             binding.btnAdd.setVisibility(View.GONE);
             binding.btnEdit.setVisibility(View.VISIBLE);
-            binding.btnDelete.setVisibility(View.VISIBLE);
             binding.toolbar.setTitle("Cập nhật nhân viên");
             binding.edtName.setText(mEmployment.getName());
             binding.edtDate.setText(mEmployment.getBirthday());
-            binding.edtRole.setText(mEmployment.getRoleEmployment());
+            binding.spinnerRole.setSelection(ManageApplication.sEmploymentList.indexOf(mEmployment));
             binding.edtPhone.setText(mEmployment.getPhone());
             binding.edtEmail.setText(mEmployment.getEmail());
             binding.id.setText(mEmployment.get_id());
@@ -77,16 +75,33 @@ public class DetailEmploymentActivity extends AppCompatActivity {
         binding.spinnerSex.setSelection(mPosition);
         binding.spinnerSex.setEnabled(true);
 
-        binding.btnDelete.setOnClickListener(v -> {
+        List<String> role = new ArrayList<>();
+//        Giám đốc, Phó Giám đốc, Quản lý, Nhân viên
 
-        });
+        role.add("Giám đốc kinh doanh");
+        role.add("Giám đốc công nghệ");
+        role.add("Giám đốc nhân sự");
+        role.add("Phó giám đốc kinh doanh");
+        role.add("Phó giám đốc công nghệ");
+        role.add("Phó giám đốc nhân sự");
+        role.add("Quản lý kinh doanh");
+        role.add("Quản lý công nghệ");
+        role.add("Quản lý nhân sự");
+        role.add("Nhân viên kinh doanh");
+        role.add("Nhân viên công nghệ");
+        role.add("Nhân viên tuyển dụng");
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
+                R.layout.spinner_item,
+                role);
+        binding.spinnerRole.setAdapter(adapter2);
 
         binding.btnAdd.setOnClickListener(V -> {
             CreateEmploymentParams params = new CreateEmploymentParams();
             params.setName(binding.edtName.getText().toString());
             params.setBirthday(binding.edtDate.getText().toString());
             params.setPhone(binding.edtPhone.getText().toString());
-            params.setRoleEmployment(binding.edtRole.getText().toString());
+            params.setRoleEmployment(binding.spinnerRole.getSelectedItem().toString());
             params.setEmail(binding.edtEmail.getText().toString());
             params.setJoinDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
             String text = binding.spinnerSex.getSelectedItem().toString();
@@ -124,42 +139,12 @@ public class DetailEmploymentActivity extends AppCompatActivity {
                     });
         });
 
-        binding.btnDelete.setOnClickListener(v -> {
-            RetrofitClient.getInstance()
-                    .getApiClient()
-                    .deleteEmployment(new DeleteContractParams("", mEmployment.get_id()))
-                    .enqueue(new Callback<BaseDto>() {
-                        @Override
-                        public void onResponse(Call<BaseDto> call, Response<BaseDto> response) {
-                            if (response.body().getSuccess()) {
-                                Toast.makeText(mContext,
-                                        "Xóa thành công!",
-                                        Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-                                Toast.makeText(mContext,
-                                        "Xóa thất bại!",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<BaseDto> call, Throwable t) {
-                            Utility.dismissWaitingDialog();
-                            Log.e("CheckApp", t.toString());
-                            Toast.makeText(mContext,
-                                    "Thêm thất bại!",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        });
-
         binding.btnEdit.setOnClickListener(v -> {
             EmploymentDto.Employment params = new EmploymentDto.Employment();
             params.setName(binding.edtName.getText().toString());
             params.setBirthday(binding.edtDate.getText().toString());
             params.setPhone(binding.edtPhone.getText().toString());
-            params.setRoleEmployment(binding.edtRole.getText().toString());
+            params.setRoleEmployment(binding.spinnerRole.getSelectedItem().toString());
             params.setEmail(binding.edtEmail.getText().toString());
             params.setJoinDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
             String text = binding.spinnerSex.getSelectedItem().toString();
